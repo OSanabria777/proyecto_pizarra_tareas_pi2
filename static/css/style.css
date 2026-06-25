@@ -1,0 +1,183 @@
+:root {
+  --board-bg: linear-gradient(135deg, #eef2ff 0%, #f8fafc 45%, #fef3c7 100%);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--board-bg);
+  color: #1f2937;
+}
+
+.navbar-glass {
+  backdrop-filter: blur(14px);
+  background: rgba(17, 24, 39, 0.78);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+}
+
+.auth-shell {
+  min-height: calc(100vh - 120px);
+  display: grid;
+  place-items: center;
+}
+
+.auth-card {
+  width: min(100%, 520px);
+  border-radius: 1.5rem;
+}
+
+.auth-form .form-control,
+.auth-form .form-control:focus,
+.card .form-control,
+.card .form-control:focus {
+  border-radius: 0.9rem;
+  box-shadow: none;
+}
+
+.task-card {
+  border-radius: 1.4rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.task-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+  pointer-events: none;
+}
+
+.task-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18) !important;
+}
+
+.btn-boost {
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
+}
+
+.btn-boost:hover {
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.28);
+}
+
+.btn-icon { width:48px; height:48px; display:inline-flex; align-items:center; justify-content:center; padding:0.45rem; }
+
+.svg-inline { width:18px; height:18px; display:block; }
+
+.board-hero {
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.section-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: .4rem .8rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+}
+
+.section-pill-success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.stat-tile {
+  border-radius: 1.2rem;
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.stat-tile-success {
+  background: #f0fdf4;
+  border-color: rgba(34, 197, 94, 0.18);
+}
+
+.stat-label {
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: #64748b;
+  margin-bottom: .2rem;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.task-card-completed {
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  opacity: 1;
+}
+
+.task-card-archive {
+  border-left: 0.45rem solid #22c55e;
+  border-radius: 1.4rem;
+  box-shadow: 0 12px 28px rgba(34, 197, 94, 0.12) !important;
+}
+
+.task-card-archive:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(34, 197, 94, 0.18) !important;
+}
+
+.task-done-icon {
+  width: 2rem;
+  height: 2rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 800;
+  flex: 0 0 auto;
+}
+
+.task-description {
+  white-space: normal;
+}
+
+.empty-state {
+  border-radius: 1.5rem;
+}
+
+input[type="color"].form-control-color {
+  width: 4.5rem;
+  height: 3rem;
+  padding: .25rem;
+}
+
+/* App button shared styles */
+.app-btn { border-radius: .7rem; padding:.45rem .8rem; font-weight:600; transition: transform .06s ease, box-shadow .12s ease; }
+.btn-sm.app-btn { padding:.35rem .65rem; font-size:.9rem; }
+.app-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(15,23,42,0.12); }
+
+/* Ensure danger buttons keep strong color with app style */
+.btn-danger.app-btn { color: #fff; }
+
+
+/* App button styles and brand */
+.app-btn { border-radius: .7rem; padding:.45rem .8rem; font-weight:600; }
+.btn-sm.app-btn { padding:.35rem .65rem; font-size:.9rem; }
+.brand-pro { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; letter-spacing:.02em; font-size:1.05rem; color:#fff; }
+.navbar-glass { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+/* Center the navbar brand (Pizarra — Gestión de Tareas) */
+.navbar-glass .container { position: relative; }
+.brand-pro { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.2rem; }
+
+/* Restore original hero alignment defaults (no forced centering) */
+.board-hero .hero-text { text-align: left; }
+.board-hero .hero-text .display-6 { font-size: 2.8rem; line-height: 1.05; }
+.board-hero .hero-text .text-muted { margin: 0 0 1rem 0; color: #6b7280; }
