@@ -254,34 +254,61 @@ input[type="color"].form-control-color {
   word-break: break-word;
 }
 
-@media (max-width: 576px) {
+
+/* =========================
+   📱 MÓVIL + TABLET
+   ========================= */
+
+/* Convertimos navbar en BLOQUES (no flex fila) */
+.navbar-glass .container {
+  display: block !important;
+  text-align: center;
+}
+
+/* TÍTULO */
+.navbar-glass .peso {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.navbar-glass .navbar-brand {
+  display: inline-block;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* BOTONES */
+.navbar-glass .ms-auto {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: 0 !important;
+}
+
+/* =========================
+   💻 DESKTOP
+   ========================= */
+
+@media (min-width: 992px) {
 
   .navbar-glass .container {
-    flex-direction: column;
+    display: flex !important;
+    justify-content: space-between;
     align-items: center;
-    gap: 1.25rem; /* 👈 más espacio entre título y botones */
+    text-align: left;
   }
 
-  /* 🔝 Subir un poco el título */
-  .navbar-glass .peso {
-    transform: translateY(-3px);
-  }
-
-  .navbar-glass .navbar-brand {
-    line-height: 1.1;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* 🔘 Botones */
   .navbar-glass .ms-auto {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    width: auto;
+    justify-content: flex-end;
+    margin-left: auto !important;
+    flex-wrap: nowrap;
   }
 
-  .navbar-glass .ms-auto.d-flex {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .navbar-glass .peso {
+    width: auto;
+    margin-bottom: 0;
   }
 }
