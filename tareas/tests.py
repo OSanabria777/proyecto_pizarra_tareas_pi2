@@ -26,6 +26,12 @@ class AccessControlTests(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
+    def test_app_views_require_active_session(self):
+        response = self.client.get(reverse('dashboard'))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(reverse('login'), response['Location'])
+
     def test_profile_page_is_available_for_authenticated_users(self):
         self.client.login(username='usuario', password='testpass123')
         response = self.client.get(reverse('profile'))
@@ -80,6 +86,32 @@ class AccessControlTests(TestCase):
         self.assertEqual(self.client.get(reverse('task_create')).status_code, 302)
         self.assertEqual(self.client.get(reverse('task_update', args=[task.pk])).status_code, 302)
         self.assertEqual(self.client.get(reverse('task_delete', args=[task.pk])).status_code, 302)
+
+    def test_normal_user_gets_forbidden_on_django_admin(self):
+        self.client.login(username='usuario', password='testpass123')
+        response = self.client.get(reverse('admin:index'))
+
+        self.assertEqual(response.status_code, 403)
+        self.assertContains(
+            response,
+            'No posees los permisos necesarios para acceder.',
+            status_code=403,
+        )
+
+    def test_normal_user_does_not_see_admin_button(self):
+        self.client.login(username='usuario', password='testpass123')
+        response = self.client.get(reverse('dashboard'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Admin Django')
+
+    def test_superuser_sees_admin_button(self):
+        self.client.login(username='admin', password='testpass123')
+        response = self.client.get(reverse('dashboard'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Admin Django')
+        self.assertContains(response, reverse('admin:index'))
 
 
 class SuperuserViewTests(TestCase):
