@@ -1,20 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import Task
-
-
-class RegisterForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = ('username',)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'form-control form-control-lg', 'placeholder': 'Nombre de usuario'})
-        self.fields['password1'].widget.attrs.update({'class': 'form-control form-control-lg', 'placeholder': 'Contraseña'})
-        self.fields['password2'].widget.attrs.update({'class': 'form-control form-control-lg', 'placeholder': 'Repetir contraseña'})
 
 
 class LoginForm(AuthenticationForm):
@@ -27,12 +14,18 @@ class LoginForm(AuthenticationForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('title', 'description', 'color')
+        fields = ('title', 'description', 'asignado_a', 'color')
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Título de la tarea'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Describe la tarea'}),
+            'asignado_a': forms.Select(attrs={'class': 'form-select form-select-lg'}),
             'color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['asignado_a'].required = True
+        self.fields['asignado_a'].empty_label = 'Selecciona un usuario'
 
     def clean_color(self):
         color = self.cleaned_data['color'].strip()

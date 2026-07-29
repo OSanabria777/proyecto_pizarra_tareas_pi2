@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Perfil{% endblock %}
+{% block topbar_kicker %}Cuenta{% endblock %}
+{% block topbar_title %}Perfil de usuario{% endblock %}
+{% block topbar_subtitle %}Resumen profesional de tu cuenta y actividad dentro de la plataforma.{% endblock %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-12 col-lg-4">
+    <div class="card border-0 shadow-sm h-100 profile-card">
+      <div class="card-body p-4 p-xl-5 text-center">
+        <div class="profile-avatar mx-auto mb-3">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <h2 class="h4 fw-bold mb-1">{{ profile_user.get_full_name|default:profile_user.username }}</h2>
+        <p class="text-muted mb-3">@{{ profile_user.username }}</p>
+        <span class="badge rounded-pill {% if profile_user.is_superuser %}text-bg-primary{% else %}text-bg-secondary{% endif %}">
+          {% if profile_user.is_superuser %}Super administrador{% else %}Usuario{% endif %}
+        </span>
+        <div class="profile-meta mt-4 text-start">
+          <div>
+            <small>Correo</small>
+            <strong>{{ profile_user.email|default:"Sin correo registrado" }}</strong>
+          </div>
+          <div>
+            <small>Último acceso</small>
+            <strong>{% if profile_user.last_login %}{{ profile_user.last_login|date:"d/m/Y H:i" }}{% else %}Sin registros{% endif %}</strong>
+          </div>
+          <div>
+            <small>Fecha de alta</small>
+            <strong>{{ profile_user.date_joined|date:"d/m/Y H:i" }}</strong>
+          </div>
+        </div>
+        <form method="post" action="{% url 'logout' %}" class="mt-4">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-lg w-100 app-btn">
+            <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-8">
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="stat-tile profile-stat">
+          <div class="stat-label">Total tareas</div>
+          <div class="stat-value">{{ total_tasks }}</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="stat-tile profile-stat">
+          <div class="stat-label">Activas</div>
+          <div class="stat-value">{{ pending_count }}</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="stat-tile profile-stat">
+          <div class="stat-label">Completadas</div>
+          <div class="stat-value">{{ completed_count }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mt-4">
+      <div class="card-body p-4 p-xl-5">
+        <h3 class="h5 fw-bold mb-3">Información de la cuenta</h3>
+        <div class="profile-info-grid">
+          <div>
+            <small>Usuario</small>
+            <strong>{{ profile_user.username }}</strong>
+          </div>
+          <div>
+            <small>Rol</small>
+            <strong>{% if profile_user.is_superuser %}Super administrador{% else %}Usuario{% endif %}</strong>
+          </div>
+          <div>
+            <small>Estado</small>
+            <strong>{% if profile_user.is_active %}Activo{% else %}Inactivo{% endif %}</strong>
+          </div>
+          <div>
+            <small>Staff</small>
+            <strong>{% if profile_user.is_staff %}Sí{% else %}No{% endif %}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

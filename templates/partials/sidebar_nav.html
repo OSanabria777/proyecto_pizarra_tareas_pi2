@@ -1,0 +1,31 @@
+<nav class="sidebar-nav">
+  <a class="sidebar-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
+    <span class="sidebar-icon"><i class="bi bi-house-door-fill"></i></span>
+    <span>Activas</span>
+  </a>
+  <a class="sidebar-link {% if request.resolver_match.url_name == 'completed' %}active{% endif %}" href="{% url 'completed' %}">
+    <span class="sidebar-icon"><i class="bi bi-check2-square"></i></span>
+    <span>Completadas</span>
+  </a>
+  <a class="sidebar-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">
+    <span class="sidebar-icon"><i class="bi bi-person-circle"></i></span>
+    <span>Perfil</span>
+  </a>
+  {% if user.is_superuser %}
+    <div class="sidebar-section">Administración</div>
+    <a class="sidebar-link" href="{% url 'admin:index' %}">
+      <span class="sidebar-icon"><i class="bi bi-gear-fill"></i></span>
+      <span>Admin Django</span>
+    </a>
+  {% endif %}
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-user">
+    <div class="sidebar-user-avatar">
+      <i class="bi bi-person-fill"></i>
+    </div>
+    <div class="sidebar-user-meta">
+      <strong>{{ request.user.username }}</strong>
+      <span>{% if user.is_superuser %}Super administrador{% else %}Usuario{% endif %}</span>
+    </div>
+  </div>
+</nav>
