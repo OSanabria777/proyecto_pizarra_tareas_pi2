@@ -60,7 +60,9 @@
           </select>
         </div>
         <div class="col-12 col-lg-1 d-flex align-items-end">
-          <button type="submit" class="btn btn-primary w-100">OK</button>
+          <button type="submit" class="btn btn-primary w-100" aria-label="Aplicar filtros">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </form>
       <div class="small text-muted mt-2">Mostrando {{ filtered_count }} tarea(s) de {{ pending_count }} activas.</div>
